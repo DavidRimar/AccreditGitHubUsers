@@ -19,11 +19,6 @@ namespace AccreditGitHubUsers.Service
         public async Task<GithubProfile> GetProfileAsync(string path)
         {
 
-
-            // string url = "";
-
-            // using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url)) { };
-
             GithubProfile githubProfile = null;
 
             HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(path);
@@ -32,6 +27,7 @@ namespace AccreditGitHubUsers.Service
             {
                 githubProfile = await response.Content.ReadAsAsync<GithubProfile>();
             }
+            // if unsuccessful, returns null
             return githubProfile;
         }
     }

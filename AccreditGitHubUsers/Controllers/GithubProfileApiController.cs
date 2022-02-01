@@ -1,13 +1,8 @@
 ﻿using AccreditGitHubUsers.Models;
 using AccreditGitHubUsers.Service;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Mvc;
 
 
 namespace AccreditGitHubUsers.Controllers
@@ -36,49 +31,27 @@ namespace AccreditGitHubUsers.Controllers
         }
 
         // ACTIONS
-        // GET: api/GithubProfile
-
-       
-
         [System.Web.Mvc.Route("api/GithubProfileApi")]
-        [System.Web.Mvc.HttpGet]
-        public async Task<IHttpActionResult> Get()
+        public async Task<GithubProfile> Get()
         {
 
-            string url = "https://api.github.com/users/robconery";
+            string url = "https://api.github.com/users/DavidRimar"; // Default value, if no search string, give me David Rimar
 
             Profile = await _apiService.GetProfileAsync(url);
 
-            //return View(Profile);
-            return Ok(Profile);
+            return Profile;
         }
 
-        [System.Web.Mvc.Route("api/GithubProfileApi/{searchString}")]
-        [System.Web.Mvc.HttpGet]
-        public async Task<IEnumerable<GithubProfile>> Get(string searchString)
+        [System.Web.Mvc.Route("api/GithubProfileApi/{search}")]
+        public async Task<GithubProfile> Get(string search)
         {
 
-            string url = $"https://api.github.com/users/{searchString}";
-
-            List<GithubProfile> list = new List<GithubProfile>();
+            string url = $"https://api.github.com/users/{search}";
 
             Profile = await _apiService.GetProfileAsync(url);
 
-            list.Add(Profile);
-            list.Add(Profile);
-
-            //return View(Profile);
-            return list;
+            return Profile;
         }
 
-
-        /*
-        public ActionResult Index()
-        {
-            //ViewBag.Title = "Home Page";
-
-            return View(Profile);
-        }
-        */
     }
 }

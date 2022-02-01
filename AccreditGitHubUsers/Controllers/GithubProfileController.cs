@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,41 +11,84 @@ namespace AccreditGitHubUsers.Controllers
     public class GithubProfileController : Controller
     {
 
-        // returns the Original View i.e. HOME PAGE == LIST of GitHub users
-        // and a search button, upon which you get only certain users
-        // otherwise, the top 5 or sth
+        // PROPERTIES
+        public GithubProfile GithubUser { get; set; }
 
+        // CONSTRUCTOR
+        public GithubProfileController()
+        {
 
+        }
 
-        // shows a list of github users (5) with search enabled
-        // model: LIST<GithubUser>
-        // VIEW: Home > Index.cshtml
+        // ACTIONS
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            // call Web API Controller from here
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44314/api/");
 
-            return View(ListOfGithubUsers);
+                //HTTP GET
+                var responseTask = client.GetAsync("GithubProfileApi"); // calls the WEB API controller
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                // check if Web API data fetch is successful
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<GithubProfile>();
+                    readTask.Wait();
+
+                    GithubUser = readTask.Result;
+                }
+                else //web api sent error response 
+                {
+
+                    GithubUser = null;
+
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
+            }
+
+            return View(GithubUser);
         }
 
         [HttpPost]
         public ActionResult Index(string search)
         {
-            ViewBag.Title = "Home Page";
+            // call Web API Controller from here using the Search String
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44314/api/");
 
-            return View(ListOfGithubUsers.Where(user => user.Login.Contains(search)).ToList());
+                //HTTP GET
+                var responseTask = client.GetAsync("GithubProfileApi/" + search); // calls the WEB API controller
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                // check if Web API data fetch is successful
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<GithubProfile>();
+                    readTask.Wait();
+
+                    GithubUser = readTask.Result;
+
+                }
+                else //web api sent error response 
+                {
+
+                    GithubUser = null;
+
+                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                }
+            }
+
+            return View(GithubUser);
         }
 
-        // PROPERTIES
-        public List<GithubProfile> ListOfGithubUsers { get; set; }
-
-        // CONSTRUCTOR
-        public GithubProfileController()
-        {
-            ListOfGithubUsers = new List<GithubProfile>();
-            ListOfGithubUsers.Add(new GithubProfile { Id = 1, Login = "robjones" });
-            ListOfGithubUsers.Add(new GithubProfile { Id = 2, Login = "robconery" });
-        }
-
-        // Possible Action Handlers here that 
+       
     }
 }

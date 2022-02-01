@@ -1,13 +1,13 @@
-﻿@model IEnumerable<AccreditGitHubUsers.Models.GithubProfile>
+﻿@model AccreditGitHubUsers.Models.GithubProfile
 
 @{
     ViewBag.Title = "Home";
 }
 
-<h2>Home</h2>
-<p>Search for a Github user by name.</p>
+<h2>Search for a Github users</h2>
 
 <!-- Search Form With JQuery -->
+<!--
 <form>
     <div class="flex-row justify-content-center align-items-center ml-4 mb-2">
         <div class="col-3">
@@ -24,38 +24,48 @@
 
     </div>
 </form>
-
+-->
 
 <!-- Search Form Without JQuery -->
-<div>
-    @using (@Html.BeginForm())
+<div class="flex-row">
+    <div class="col-10 search_bar">
+        @using (Html.BeginForm("Index", "GithubProfile", FormMethod.Post))
     {
-        @Html.TextBox("search") <input type="submit" value="search" />
+        <span>Github UserName:</span>  @Html.TextBox("search")
+        <input class="btn btn-primary" type="submit" value="search" />
     }
+    </div>
 </div>
+
 
 <table class="table" id="user_table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Login)
+            Name
         </th>
         <th>
-            Go to Profile
+            UserName
+        </th>
+        <th>
+            View Profile
         </th>
     </tr>
 
-    @foreach (var userProfile in Model)
-    {
-        <tr class="table_row">
-            <td>
-                @Html.DisplayFor(modelItem => userProfile.Login)
-            </td>
-            <td>
-                @* Call Controller GitHubProfile and trigger action api/GithubProfile*@
-                <a>Profile</a>
-                @* Action: Should fetch the GitHub User again and list the associated projects.*@
-            </td>
-        </tr>
-    }
+
+    <tr class="table_row">
+        <td>
+            @Html.DisplayFor(model => model.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Login)
+        </td>
+        <td>
+            <a>Profile</a>
+        </td>
+    </tr>
 
 </table>
+
+<div class="row" style="margin-top: 20px;">
+    <p><span style="font-weight: bold;">Note:</span> You need to type the full UserName for the GitHub user in order to find a User. (Partial names dont return a list of possible results)</p>
+</div>
