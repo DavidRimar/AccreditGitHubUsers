@@ -4,27 +4,7 @@
     ViewBag.Title = "Home";
 }
 
-<h2>Search for a Github users</h2>
-
-<!-- Search Form With JQuery -->
-<!--
-<form>
-    <div class="flex-row justify-content-center align-items-center ml-4 mb-2">
-        <div class="col-3">
-            <label>Search By GitHub Username: </label>
-        </div>
-        <div class="col-6">
-            <input type="text" asp-for="SearchString" />
-        </div>
-        <div class="col-3">
-            <button id="buttonSearch" class="btn btn-success" data-name="robconery">
-                Search
-            </button>
-        </div>
-
-    </div>
-</form>
--->
+<h2>Search for a Github user</h2>
 
 <!-- Search Form Without JQuery -->
 <div class="flex-row">
@@ -38,33 +18,46 @@
 </div>
 
 
-<table class="table" id="user_table">
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            UserName
-        </th>
-        <th>
-            View Profile
-        </th>
-    </tr>
+@if (Model == null)
+{
+    <div class="flex-row justify-content-center">
+        <div class="col">
+            <p style="color:darkred">No Github User found! Please ensure the name is correct!</p>
+        </div>
+    </div>
+}
+else {
+    <div class="row">
+        <table class="table" id="user_table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    UserName
+                </th>
+                <th>
+                    View Profile
+                </th>
+            </tr>
 
 
-    <tr class="table_row">
-        <td>
-            @Html.DisplayFor(model => model.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(model => model.Login)
-        </td>
-        <td>
-            <a>Profile</a>
-        </td>
-    </tr>
+            <tr class="table_row">
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Login)
+                </td>
+                <td>
+                    <a>Profile</a>
+                </td>
+            </tr>
 
-</table>
+        </table>
+    </div>
+}
+
 
 <div class="row" style="margin-top: 20px;">
     <p><span style="font-weight: bold;">Note:</span> You need to type the full UserName for the GitHub user in order to find a User. (Partial names dont return a list of possible results)</p>

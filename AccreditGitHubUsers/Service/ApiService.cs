@@ -8,7 +8,7 @@ using System.Web;
 
 namespace AccreditGitHubUsers.Service
 {
-    public class ApiService
+    public class ApiService : IApiService
     {
 
         public ApiService()

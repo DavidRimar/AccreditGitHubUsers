@@ -29,7 +29,7 @@ namespace AccreditGitHubUsers.Controllers
                 client.BaseAddress = new Uri("https://localhost:44314/api/");
 
                 //HTTP GET
-                var responseTask = client.GetAsync("GithubProfileApi"); // calls the WEB API controller
+              var responseTask = client.GetAsync("GithubProfileApi"); // calls the WEB API controller
                 responseTask.Wait();
 
                 var result = responseTask.Result;
