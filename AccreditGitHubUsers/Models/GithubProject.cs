@@ -9,10 +9,19 @@ namespace AccreditGitHubUsers.Models
     {
         public int Id { get; set; }
 
-        public string ProjectName { get; set; }
+        public string Name { get; set; }
+
+        public string Full_Name { get; set; }
 
         public GithubProfile Owner { get; set; }
 
-        public int NumberOfForks { get; set; }
+        public int Forks_Count { get; set; }
+
+        public int Stargazers_Count { get; set; }
+
+        public int Open_Issues_Count { get; set; }
+
+        public int Watchers { get; set; }
+
     }
 }

@@ -10,5 +10,6 @@ namespace AccreditGitHubUsers.Service
     public interface IApiService
     {
         Task<GithubProfile> GetProfileAsync(string path);
+        Task<List<GithubProject>> GetProjectsAsync(string path);
     }
 }

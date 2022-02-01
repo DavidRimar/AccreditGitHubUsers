@@ -50,7 +50,7 @@ else {
                     @Html.DisplayFor(model => model.Login)
                 </td>
                 <td>
-                    <a>Profile</a>
+                    @Html.ActionLink("Projects", "Index", "GithubProjects", Model, null)
                 </td>
             </tr>
 

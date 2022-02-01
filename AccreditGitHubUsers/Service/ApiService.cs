@@ -30,5 +30,19 @@ namespace AccreditGitHubUsers.Service
             // if unsuccessful, returns null
             return githubProfile;
         }
+
+        public async Task<List<GithubProject>> GetProjectsAsync(string path)
+        {
+            IList<GithubProject> projects = new List<GithubProject>() { };
+
+            HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(path);
+
+            if (response.IsSuccessStatusCode)
+            {
+                projects = await response.Content.ReadAsAsync<List<GithubProject>>();
+            }
+            // if unsuccessful, returns empty list
+            return (List<GithubProject>)projects;
+        }
     }
 }

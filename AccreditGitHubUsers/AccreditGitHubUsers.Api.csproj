@@ -156,7 +156,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\GithubProjectsApiController.cs" />
     <Compile Include="Controllers\GithubProfileApiController.cs" />
+    <Compile Include="Controllers\GithubProjectsController.cs" />
     <Compile Include="Controllers\GithubProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -220,7 +222,7 @@
     <Content Include="Views\GithubProfile\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\GithubProject\Index.cshtml" />
+    <Content Include="Views\GithubProjects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

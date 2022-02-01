@@ -1,0 +1,43 @@
+﻿@model AccreditGitHubUsers.Models.GithubProfile
+
+@{
+    ViewBag.Title = "Github Projects";
+}
+
+<h2>Github Projects For: @Model.Name</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AllProjects.First().Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllProjects.First().Full_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllProjects.First().Stargazers_Count)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AllProjects.First().Forks_Count)
+        </th>
+    </tr>
+
+@foreach (var project in Model.AllProjects) {
+    <tr>
+        <td>
+            @project.Name
+        </td>
+        <td>
+            @project.Full_Name
+        </td>
+        <td>
+            @project.Stargazers_Count
+        </td>
+          <td>
+            @project.Forks_Count
+        </td>
+    </tr>
+}
+
+</table>
