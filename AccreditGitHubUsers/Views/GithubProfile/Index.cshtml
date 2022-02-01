@@ -1,0 +1,61 @@
+﻿@model IEnumerable<AccreditGitHubUsers.Models.GithubProfile>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Home</h2>
+<p>Search for a Github user by name.</p>
+
+<!-- Search Form With JQuery -->
+<form>
+    <div class="flex-row justify-content-center align-items-center ml-4 mb-2">
+        <div class="col-3">
+            <label>Search By GitHub Username: </label>
+        </div>
+        <div class="col-6">
+            <input type="text" asp-for="SearchString" />
+        </div>
+        <div class="col-3">
+            <button id="buttonSearch" class="btn btn-success" data-name="robconery">
+                Search
+            </button>
+        </div>
+
+    </div>
+</form>
+
+
+<!-- Search Form Without JQuery -->
+<div>
+    @using (@Html.BeginForm())
+    {
+        @Html.TextBox("search") <input type="submit" value="search" />
+    }
+</div>
+
+<table class="table" id="user_table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th>
+            Go to Profile
+        </th>
+    </tr>
+
+    @foreach (var userProfile in Model)
+    {
+        <tr class="table_row">
+            <td>
+                @Html.DisplayFor(modelItem => userProfile.Login)
+            </td>
+            <td>
+                @* Call Controller GitHubProfile and trigger action api/GithubProfile*@
+                <a>Profile</a>
+                @* Action: Should fetch the GitHub User again and list the associated projects.*@
+            </td>
+        </tr>
+    }
+
+</table>
