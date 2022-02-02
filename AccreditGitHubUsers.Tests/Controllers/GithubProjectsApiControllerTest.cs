@@ -22,18 +22,16 @@ namespace AccreditGitHubUsers.Tests.Controllers
         public async Task Get_ProjectsExistForUser_OkResponseNonEmptyProjectsReturned()
         {
             // Arrange
-            GithubProfileApiController controller = new GithubProfileApiController();
+            GithubProjectsApiController controller = new GithubProjectsApiController();
             ApiHelper.InitializeClient();
             string username = "robconery";
 
             // Act
             IHttpActionResult result = await controller.Get(username);
             var contentResult = result as OkNegotiatedContentResult<List<GithubProject>>;
-            var expectedNumberOfProjects = 5;
+            var expectedNumberOfProjects = 30; // one request is limited to 30 repos (Pagination to be reviewed!)
 
             // Assert
-            Assert.IsNotNull(contentResult);
-            Assert.IsNotNull(contentResult.Content);
             Assert.AreEqual(expectedNumberOfProjects, contentResult.Content.Count);
         }
 
