@@ -4,40 +4,60 @@
     ViewBag.Title = "Github Projects";
 }
 
-<h2>Github Projects For: @Model.Name</h2>
+<h3>Github Projects</h3>
 
+<section class="container">
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AllProjects.First().Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AllProjects.First().Full_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AllProjects.First().Stargazers_Count)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AllProjects.First().Forks_Count)
-        </th>
-    </tr>
+    <div class="row justify-content-center text-center" style="margin: 1.8rem;">
+        <div class="col-sm-4">
+            <img src="@Html.DisplayFor(model => model.Avatar_Url)" alt="Avatar_Image" class="avatar_image_large" />
+        </div>
+        <div class="col-sm-4" style="padding-top:1.6em; font-size: 2.4rem">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <div class="col-sm-4" style="padding-top:1.6em; font-size: 2.4rem">
+            @Html.DisplayFor(model => model.Location)
+        </div>
+    </div>
 
-@foreach (var project in Model.AllProjects) {
-    <tr>
-        <td>
-            @project.Name
-        </td>
-        <td>
-            @project.Full_Name
-        </td>
-        <td>
-            @project.Stargazers_Count
-        </td>
-          <td>
-            @project.Forks_Count
-        </td>
-    </tr>
-}
+    @if (Model.AllProjects.Any())
+    {
 
-</table>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.AllProjects.First().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AllProjects.First().Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AllProjects.First().Stargazers_Count)
+                </th>
+            </tr>
+
+            @foreach (var project in Model.AllProjects)
+            {
+                <tr>
+                    <td>
+                        <a href=@project.Svn_Url>@project.Name</a>
+                    </td>
+                    <td>
+                        @project.Description
+                    </td>
+                    <td>
+                        @project.Stargazers_Count
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <div class="row text-center" style="margin-top: 2.2rem;">
+            No Public Projects Available for the User.
+        </div>
+    }
+
+</section>

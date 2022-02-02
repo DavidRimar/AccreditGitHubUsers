@@ -30,7 +30,18 @@ namespace AccreditGitHubUsers.Controllers
         {
             string url = $"https://api.github.com/users/{search}/repos";
 
-            Projects = await _apiService.GetProjectsAsync(url);
+            List<GithubProject> projects = await _apiService.GetProjectsAsync(url);
+
+            // NOTE: Differentiate between an empty list that is due to the Github API being down VS actual project list none
+            // If apiService fails to make the request, projects will be null, otherwise, it will be an empty list
+            if (projects != null) {
+
+                Projects = projects;
+
+            } else {
+
+                return NotFound();
+            }
 
             return Ok(Projects);
         }

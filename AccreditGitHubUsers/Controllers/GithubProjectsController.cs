@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AccreditGitHubUsers.Controllers
@@ -24,7 +23,9 @@ namespace AccreditGitHubUsers.Controllers
         public ActionResult Index(GithubProfile githubUser)
         {
 
+            // use the GithubProfile object from the Profile page
             GithubUser = githubUser;
+            githubUser.AllProjects = new List<GithubProject>();
 
             // call Web API Controller from here using the Search String
             using (var client = new HttpClient())
@@ -43,15 +44,19 @@ namespace AccreditGitHubUsers.Controllers
                     var readTask = result.Content.ReadAsAsync<List<GithubProject>>();
                     readTask.Wait();
 
-                    GithubUser.AllProjects = readTask.Result;
+                    if (readTask.Result.Count != 0) {
+
+                        GithubUser.AllProjects = readTask.Result.OrderByDescending(x => x.Stargazers_Count).Take(5).ToList();
+
+                    }
 
                 }
                 else //web api sent error response 
                 {
 
-                    GithubUser.AllProjects = null;
+                    GithubUser.AllProjects = (ICollection<GithubProject>)Enumerable.Empty<GithubProject>(); ; // empty the list
 
-                    ModelState.AddModelError(string.Empty, "Server error. Please contact administrator.");
+                    ModelState.AddModelError(string.Empty, "Server error.");
                 }
             }
 

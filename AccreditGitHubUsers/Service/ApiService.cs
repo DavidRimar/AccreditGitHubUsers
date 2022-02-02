@@ -41,6 +41,12 @@ namespace AccreditGitHubUsers.Service
             {
                 projects = await response.Content.ReadAsAsync<List<GithubProject>>();
             }
+            else {
+                
+                // If StatusCode is not Ok, set to null, otherwise, it will be an empty list
+                projects = null;
+            }
+
             // if unsuccessful, returns empty list
             return (List<GithubProject>)projects;
         }

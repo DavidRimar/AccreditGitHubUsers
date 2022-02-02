@@ -27,14 +27,17 @@
     </div>
 }
 else {
-    <div class="row">
+
         <table class="table" id="user_table">
             <tr>
                 <th>
-                    Name
+                    Avatar Image
                 </th>
                 <th>
-                    UserName
+                    Username
+                </th>
+                <th>
+                    Location
                 </th>
                 <th>
                     View Profile
@@ -44,10 +47,13 @@ else {
 
             <tr class="table_row">
                 <td>
-                    @Html.DisplayFor(model => model.Name)
+                    <img src="@Html.DisplayFor(model => model.Avatar_Url)" alt="Avatar_Image" class="avatar_image"/>
                 </td>
                 <td>
                     @Html.DisplayFor(model => model.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Location)
                 </td>
                 <td>
                     @Html.ActionLink("Projects", "Index", "GithubProjects", Model, null)
@@ -55,10 +61,16 @@ else {
             </tr>
 
         </table>
-    </div>
+
 }
 
 
-<div class="row" style="margin-top: 20px;">
+<div class="flex-row" style="margin-top: 20px;">
+    <p>Test 1 (Valid Username with Projects): <span style="font-weight: bold;">robconery</span></p>
+    <p>Test 2 (Invalid Username): <span style="font-weight: bold;">robconer</span></p>
+    <p>Test 3 (Valid Username with no Projects): <span style="font-weight: bold;">techyay</span></p>
+</div>
+
+<div class="flex-row" style="margin-top: 40px;">
     <p><span style="font-weight: bold;">Note:</span> You need to type the full UserName for the GitHub user in order to find a User. (Partial names dont return a list of possible results)</p>
 </div>

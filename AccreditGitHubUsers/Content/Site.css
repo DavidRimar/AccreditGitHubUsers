@@ -19,3 +19,26 @@ textarea {
 .search_bar {
     margin-bottom: 1rem;
 }
+
+#user_table th {
+    text-align: center;
+}
+
+#user_table tr {
+    line-height: 55px;
+}
+
+#user_table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+img.avatar_image {
+    height: 52px;
+    width: auto;
+}
+
+img.avatar_image_large {
+    height: 82px;
+    width: auto;
+}
