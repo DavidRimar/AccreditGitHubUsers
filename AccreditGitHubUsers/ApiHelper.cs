@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace AccreditGitHubUsers
 {
@@ -14,11 +11,14 @@ namespace AccreditGitHubUsers
 
         public static void InitializeClient() {
 
+            string token = "";
+
             ApiClient = new HttpClient();
             // ApiClient.BaseAddress = new Uri("https://api.github.com/");
             ApiClient.DefaultRequestHeaders.Accept.Clear();
-            ApiClient.DefaultRequestHeaders.Add("User-Agent", "DavidRimar");
+            ApiClient.DefaultRequestHeaders.Add("User-Agent", "AccreditGitHubUsers");
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Token", token);
         }
     }
 }
