@@ -24,12 +24,12 @@ namespace AccreditGitHubUsers.Tests.Controllers
             // Arrange
             GithubProjectsApiController controller = new GithubProjectsApiController();
             ApiHelper.InitializeClient();
-            string username = "robconery";
+            string username = "sindresorhus";
 
             // Act
             IHttpActionResult result = await controller.Get(username);
             var contentResult = result as OkNegotiatedContentResult<List<GithubProject>>;
-            var expectedNumberOfProjects = 30; // one request is limited to 30 repos (Pagination to be reviewed!)
+            var expectedNumberOfProjects = 1045;
 
             // Assert
             Assert.AreEqual(expectedNumberOfProjects, contentResult.Content.Count);

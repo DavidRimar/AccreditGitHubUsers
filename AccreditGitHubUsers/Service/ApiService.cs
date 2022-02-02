@@ -33,22 +33,45 @@ namespace AccreditGitHubUsers.Service
 
         public async Task<List<GithubProject>> GetProjectsAsync(string path)
         {
-            IList<GithubProject> projects = new List<GithubProject>() { };
+            List<GithubProject> allProjects = new List<GithubProject>() { };
 
-            HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(path);
+            List<GithubProject> newProjects = new List<GithubProject>() { };
 
-            if (response.IsSuccessStatusCode)
+            
+            int page = 1; // start from the first page
+            int perPage = 100; // default is 30, max is 100
+
+            // PAGINATION
+            do
             {
-                projects = await response.Content.ReadAsAsync<List<GithubProject>>();
-            }
-            else {
-                
-                // If StatusCode is not Ok, set to null, otherwise, it will be an empty list
-                projects = null;
-            }
+                string pathWithPagination = path + $"?per_page={perPage}&page={page}"; 
+
+                HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(pathWithPagination);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    newProjects = await response.Content.ReadAsAsync<List<GithubProject>>();
+
+                    // add page result to list
+                    allProjects.AddRange(newProjects);
+                }
+                else
+                {
+                    // If StatusCode is not Ok, set to null
+                    allProjects = null;
+
+                    break;
+                }
+
+                // increment page number
+                page += 1;
+
+
+            } while (newProjects.Count != 0); // while there are new projects on the page
+
 
             // if unsuccessful, returns empty list
-            return (List<GithubProject>)projects;
+            return allProjects;
         }
     }
 }
